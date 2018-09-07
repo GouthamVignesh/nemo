@@ -44,12 +44,8 @@ def processRequest(req):
     for key in entity_key_val:
 	    entity_value = entity_key_val[key]
 	    entity_type = key 
-    
-    # constructing the resposne string.
-    
-    speech ="hey, Got your request, Responding from webhook " + "The Intent is: " + intent + ": The entity type is: " + entity_type + ": The entity value is: " + entity_value"
-    
-     
+   
+    speech ="hey, Got your request, Responding from webhook " + "The Intent is: " + intent + ": The entity type is: " + entity_type + ": The entity value is: " + entity_value
     res = makeWebhookResult(speech)
     return res
 
