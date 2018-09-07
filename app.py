@@ -46,19 +46,8 @@ def processRequest(req):
 	    entity_type = key 
     
     # constructing the resposne string.
-    if intent == "Platform exploration help":
-	if entity_type == "features":
-		if entity_value == "goals":
-			speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
-			                
-                elif entity_value == "sign out":
-			speech = """Here are the steps to signout: Go to top right icon > profile > sign out and then click on it."""
-                else:
-		        speech = """Currently I can only help you with udpating the goals and signing out. I could do more as I evolve."""
-
-    else:
-           speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
-
+    
+    speech ="hey, Got your request, Responding from webhook " + "The Intent is: " + intent + ": The entity type is: " + entity_type + ": The entity value is: " + entity_value"
     
      
     res = makeWebhookResult(speech)
