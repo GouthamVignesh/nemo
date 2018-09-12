@@ -51,16 +51,7 @@ def processRequest(req):
 	    if entity_type == "features":
 		    if entity_value == "sign out":
 			    speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
-     if intent =="query":
-	    if entity_type=="fact":
-	    	client = wolframalpha.Client("R2LUUJ-QTHXHRHLHK")
-	    	john = client.query(req.get("result").get("resolvedQuery"))
-	    	answer = next(john.results).text
-	    	return{
-	    	"speech": answer,
-	    	"displayText": answer,
-	    	"source": "From wolfram_alpha"
-	    	}	
+     
            
        
     else:
