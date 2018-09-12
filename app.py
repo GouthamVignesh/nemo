@@ -9,7 +9,7 @@ from urllib.error import HTTPError
 import json
 import os
 import wolframalpha
-
+import wikipedia
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -55,16 +55,19 @@ def processRequest(req):
      
     elif intent =="query":
         if entity_type =="fact":
-            if entity_value =="time":
-                client = wolframalpha.Client("R2LUUJ-QTHXHRHLHK")
-                john = client.query(req.get("result").get("resolvedQuery"))
-                answer = next(john.results).text
-                return {
-                        "speech": answer,
-                        "displayText": answer,
-                         "source": "From wolfram_alpha"
-                         }
-                
+            client = wolframalpha.Client("R2LUUJ-QTHXHRHLHK")
+            john = client.query(req.get("result").get("resolvedQuery"))
+            answer = next(john.results).text
+            return {
+                    "speech": answer,
+                    "displayText": answer,
+                    "source": "From wolfram_alpha"
+                    }
+    elif intent=="wiki":
+        if entity_type=="wiki":
+            param = req.get("result").get("parameters").get("any") 
+            fin = wikipedia.summary(param,sentences=2)
+            speech=" "+fin+""
        
     else:
            speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
