@@ -67,7 +67,11 @@ def processRequest(req):
         if entity_type=="wiki":
             param = req.get("result").get("parameters").get("any") 
             fin = wikipedia.summary(param,sentences=2)
-            speech="wiki working"
+            return{
+		   "speech":fin,
+		    "displayText":answer,
+		    "source":"From Wikipedia"
+	           }
        
     else:
            speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
