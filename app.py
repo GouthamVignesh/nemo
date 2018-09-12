@@ -8,6 +8,7 @@ from urllib.error import HTTPError
 
 import json
 import os
+import wolframalpha
 
 from flask import Flask
 from flask import request
@@ -55,7 +56,15 @@ def processRequest(req):
     elif intent =="query":
         if entity_type =="fact":
             if entity_value =="time":
-                speech="hello world i am working"
+                client = wolframalpha.Client("R2LUUJ-QTHXHRHLHK")
+                john = client.query(req.get("result").get("resolvedQuery"))
+                answer = next(john.results).text
+                return {
+                        "speech": answer,
+                        "displayText": answer,
+                         "source": "From wolfram_alpha"
+                         }
+                
        
     else:
            speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
