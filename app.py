@@ -73,8 +73,8 @@ def processRequest(req):
             try:
                 app_id = "R2LUUJ-QTHXHRHLHK"
                 client = wolframalpha.Client(app_id)
-                res = client.query(my_input)
-                answer = next(res.results).text
+                r = client.query(my_input)
+                answer = next(r.results).text
                 speech=""+answer+""
             except:
                 my_input = my_input.split(' ')
