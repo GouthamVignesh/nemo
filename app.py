@@ -69,18 +69,20 @@ def processRequest(req):
             x="The Current condition in coimbatore is Temperature : {} degree celsius \n Wind Speed : {} m/s\n Latitude : {}\n Longitude : {} It's look like some {} in your area".format(temp,wind_speed,latitude,longitude,description)
             speech=""+x+""
         
+        else:
+            try:
+                app_id = "R2LUUJ-QTHXHRHLHK"
+                client = wolframalpha.Client(app_id)
+                res = client.query(my_input)
+                answer = next(res.results).text
+                speech=""+answer+""
+            except:
+                my_input = my_input.split(' ')
+                my_input = " ".join(my_input[2:])
+                answer=wikipedia.summary(my_input,sentences=2)
+                speech=""+answer+""
     else:
-        try:
-            app_id = "R2LUUJ-QTHXHRHLHK"
-            client = wolframalpha.Client(app_id)
-            res = client.query(my_input)
-            answer = next(res.results).text
-            speech=""+answer+""
-        except:
-            my_input = my_input.split(' ')
-            my_input = " ".join(my_input[2:])
-            answer=wikipedia.summary(my_input,sentences=2)
-            speech=""+answer+""
+        speech="no input"
             
 
     
