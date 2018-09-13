@@ -73,7 +73,15 @@ def processRequest(req):
             speech='https://www.google.com/search?tbm=isch&source=hp&biw=1240&bih=610&ei=RgUUW-D1JdT5rQHukpWwCQ&q={0}&oq={1}&gs_l=img.3..35i39k1l2j0l8.11757.21299.0.21783.20.19.1.0.0.0.323.1222.0j3j2j1.6.0....0...1ac.1.64.img..14.6.1014.0...0.QyutTOLT3UI'.format(text,text)
         
         elif("how to " in my_input):
-            speech="Here is the matching video :"+'www.youtube.com/results?search_query=%s' %my_input 
+            speech="Here is the matching video :"+'www.youtube.com/results?search_query=%s' %my_input
+        elif("lets watch movie" in my_input):
+            speech="i hope you will find your interesting movie in this link ,  'https://newmoviesonline.tv' have a good time !" 
+        elif("news" in my_input)or("top headlines" in my_input) or ("headlines" in my_input):
+            r = requests.get('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
+            j = r.json()
+            x = j.get('articles')
+            newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
+            speech=""+newp+""
         else:
             try:
                 app_id = "R2LUUJ-QTHXHRHLHK"
