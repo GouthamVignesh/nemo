@@ -68,6 +68,9 @@ def processRequest(req):
             description = data['weather'][0]['description']
             x="The Current condition in coimbatore is Temperature : {} degree celsius \n Wind Speed : {} m/s\n Latitude : {}\n Longitude : {} It's look like some {} in your area".format(temp,wind_speed,latitude,longitude,description)
             speech=""+x+""
+        elif("pictures of" in my_input) or ("show me the pictures of" in my_input):
+            text=my_input[my_input.find("of")+2:]
+            speech='https://www.google.com/search?tbm=isch&source=hp&biw=1240&bih=610&ei=RgUUW-D1JdT5rQHukpWwCQ&q={0}&oq={1}&gs_l=img.3..35i39k1l2j0l8.11757.21299.0.21783.20.19.1.0.0.0.323.1222.0j3j2j1.6.0....0...1ac.1.64.img..14.6.1014.0...0.QyutTOLT3UI'.format(text,text)
         
         else:
             try:
