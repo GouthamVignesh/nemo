@@ -10,6 +10,7 @@ import json
 import os
 import wolframalpha
 import wikipedia
+import requests
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -55,7 +56,18 @@ def processRequest(req):
      
     elif intent=="Default Fallback Intent":
         my_input=req.get("result").get("resolvedQuery")
-        speech=""+my_input+""
+        if("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
+            city="coimbatore"
+            url = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid=d88ce41afbcf7f04e679e5227db5484a&units=metric'.format(city)
+            r = requests.get(url)
+            data = r.json()
+            temp = data['main']['temp']
+            wind_speed = data['wind']['speed']
+            latitude = data['coord']['lat']
+            longitude = data['coord']['lon']
+            description = data['weather'][0]['description']
+            x="Temperature : {} degree celsius \nWind Speed : {} m/s\nLatitude : {}\nLongitude : {}Description : {}".format(temp,wind_speed,latitude,longitude,description)
+            speech=""+x+""
     else:
            speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
 
