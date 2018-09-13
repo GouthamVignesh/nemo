@@ -72,6 +72,8 @@ def processRequest(req):
             text=my_input[my_input.find("of")+2:]
             speech='https://www.google.com/search?tbm=isch&source=hp&biw=1240&bih=610&ei=RgUUW-D1JdT5rQHukpWwCQ&q={0}&oq={1}&gs_l=img.3..35i39k1l2j0l8.11757.21299.0.21783.20.19.1.0.0.0.323.1222.0j3j2j1.6.0....0...1ac.1.64.img..14.6.1014.0...0.QyutTOLT3UI'.format(text,text)
         
+        elif("how to " in my_input):
+            speech="Here is the matching video :"+'www.youtube.com/results?search_query=%s' %my_input 
         else:
             try:
                 app_id = "R2LUUJ-QTHXHRHLHK"
