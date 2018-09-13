@@ -54,7 +54,8 @@ def processRequest(req):
 			    speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
      
     elif intent=="Default Fallback Intent":
-        speech="working"
+        my_input=req.get("result").get("resolvedQuery")
+        speech=""+my_input+""
     else:
            speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
 
