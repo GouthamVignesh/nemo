@@ -53,7 +53,7 @@ def processRequest(req):
 		    if entity_value == "sign out":
 			    speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
      
-    elif intent=="Default Fallback Intent ":
+    elif intent=="Default Fallback Intent":
         speech="working"
     else:
            speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
