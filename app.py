@@ -53,26 +53,8 @@ def processRequest(req):
 		    if entity_value == "sign out":
 			    speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
      
-    elif intent =="query":
-        if entity_type =="fact":
-            client = wolframalpha.Client("R2LUUJ-QTHXHRHLHK")
-            john = client.query(req.get("result").get("resolvedQuery"))
-            answer = next(john.results).text
-            return {
-                    "speech": answer,
-                    "displayText": answer,
-                    "source": "From wolfram_alpha"
-                    }
-    elif intent=="wiki":
-        if entity_type=="wiki":
-            param = req.get("result").get("parameters").get("any") 
-            fin = wikipedia.summary(param,sentences=2)
-            return{
-		   "speech":fin,
-		    "displayText":answer,
-		    "source":"From Wikipedia"
-	           }
-       
+    elif intent=="Default Fallback Intent ":
+        speech="working"
     else:
            speech = """Currently I can only help you with navigating to udpate the goals and signing out. I could do more as I evolve."""
 
