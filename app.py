@@ -82,6 +82,8 @@ def processRequest(req):
             x = j.get('articles')
             newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
             speech=""+newp+""
+        elif("lets watch movie" in my_input) or("movie" in my_input):
+            speech="Here is the matching link to find your intrested movie : https://newmoviesonline.tv"
         else:
             try:
                 app_id = "R2LUUJ-QTHXHRHLHK"
