@@ -14,6 +14,7 @@ import requests
 from flask import Flask
 from flask import request
 from flask import make_response
+import random
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -66,7 +67,7 @@ def processRequest(req):
             latitude = data['coord']['lat']
             longitude = data['coord']['lon']
             description = data['weather'][0]['description']
-            x="The Current condition in coimbatore is Temperature : {} degree celsius \n Wind Speed : {} m/s\n Latitude : {}\n Longitude : {} It's look like some {} in your area".format(temp,wind_speed,latitude,longitude,description)
+            x="The Current condition in coimbatore is Temperature : {} degree celsius \n Wind Speed : {} m/s \n Latitude : {}\n Longitude : {} It's look like some {} in your area".format(temp,wind_speed,latitude,longitude,description)
             speech=""+x+""
         elif("pictures of" in my_input) or ("show me the pictures of" in my_input):
             text=my_input[my_input.find("of")+2:]
@@ -77,11 +78,43 @@ def processRequest(req):
         elif("lets watch movie" in my_input):
             speech="i hope you will find your interesting movie in this link ,  'https://newmoviesonline.tv' have a good time !" 
         elif("news" in my_input)or("top headlines" in my_input) or ("headlines" in my_input):
-            r = requests.get('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
-            j = r.json()
-            x = j.get('articles')
-            newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
-            speech=""+newp+""
+            y = random.randint(1,6)
+            if y == 1:
+                r = requests.get('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
+                j = r.json()
+                x = j.get('articles')
+                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
+                speech=""+newp+""
+            elif y==2:
+                r = requests.get('https://newsapi.org/v1/articles?source=the-times-of-india&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
+                j = r.json()
+                x = j.get('articles')
+                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
+                speech=""+newp+""   
+            elif y == 3:
+                r = requests.get('https://newsapi.org/v1/articles?source=independent&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
+                j = r.json()
+                x = j.get('articles')
+                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
+                speech=""+newp+""
+            elif y==4:
+                r = requests.get('https://newsapi.org/v1/articles?source=ars-technica&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
+                j = r.json()
+                x = j.get('articles')
+                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
+                speech=""+newp+""
+            elif y == 5:
+                r = requests.get('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
+                j = r.json()
+                x = j.get('articles')
+                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
+                speech=""+newp+""
+            elif y==6:
+                r = requests.get('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
+                j = r.json()
+                x = j.get('articles')
+                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
+                speech=""+newp+""
         elif("lets watch movie" in my_input) or("movie" in my_input):
             speech="Here is the matching link to find your intrested movie : https://newmoviesonline.tv"
         else:
