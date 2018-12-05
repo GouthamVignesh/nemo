@@ -46,14 +46,14 @@ def processRequest(req):
 
     entity_key_val = req_dict["result"]["parameters"]
     for key in entity_key_val:
-	    entity_value = entity_key_val[key]
-	    entity_type = key 
+       entity_value = entity_key_val[key]
+       entity_type = key 
     
     # constructing the resposne string based on intent and the entity.
     if intent == "Platform exploration help":
-	    if entity_type == "features":
-		    if entity_value == "sign out":
-			    speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
+       if entity_type == "features":
+          if entity_value == "sign out":
+             speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
      
     elif intent=="Default Fallback Intent":
         my_input=req.get("result").get("resolvedQuery")
@@ -144,9 +144,13 @@ def makeWebhookResult(speech):
     return {
         "speech": speech,
         "displayText": speech,
-        
+        "messages": {
+            "type": 1,
+            "title": "card title",
+            "subtitle": "card text",
+            "imageUrl": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png"
+        },
         "source": "Build conversational interface for your app in 10 minutes."
-	    
     }
 
 
