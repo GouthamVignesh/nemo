@@ -143,7 +143,7 @@ def makeWebhookResult(speech):
 
     return {
         "speech": speech,
-        "displayText": speech,
+        "displayText": speech
         "messages": {
             "type": 1,
             "title": "card title",
