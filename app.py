@@ -15,9 +15,9 @@ from flask import Flask
 from flask import request
 from flask import make_response
 import random
-import weather
-import news
-import alternate
+from weather import weather
+from news import news
+from alternate import alternate
 
 # Flask app should start in global layout
 app = Flask(__name__)
