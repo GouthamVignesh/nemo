@@ -15,6 +15,9 @@ from flask import Flask
 from flask import request
 from flask import make_response
 import random
+import weather
+import news
+import alternate
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -58,77 +61,16 @@ def processRequest(req):
     elif intent=="Default Fallback Intent":
         my_input=req.get("result").get("resolvedQuery")
         if("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
-            city="coimbatore"
-            url = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid=d88ce41afbcf7f04e679e5227db5484a&units=metric'.format(city)
-            r = requests.get(url)
-            data = r.json()
-            temp = data['main']['temp']
-            wind_speed = data['wind']['speed']
-            latitude = data['coord']['lat']
-            longitude = data['coord']['lon']
-            description = data['weather'][0]['description']
-            x="The Current condition in coimbatore is Temperature : {} degree celsius \n Wind Speed : {} m/s \n Latitude : {}\n Longitude : {} It's look like some {} in your area".format(temp,wind_speed,latitude,longitude,description)
+            x=weather()
             speech=""+x+""
-        elif("pictures of" in my_input) or ("show me the pictures of" in my_input):
-            text=my_input[my_input.find("of")+2:]
-            speech='https://www.google.com/search?tbm=isch&source=hp&biw=1240&bih=610&ei=RgUUW-D1JdT5rQHukpWwCQ&q={0}&oq={1}&gs_l=img.3..35i39k1l2j0l8.11757.21299.0.21783.20.19.1.0.0.0.323.1222.0j3j2j1.6.0....0...1ac.1.64.img..14.6.1014.0...0.QyutTOLT3UI'.format(text,text)
-        
-        elif("how to " in my_input):
-            speech="Here is the matching video :"+'www.youtube.com/results?search_query=%s' %my_input
-        elif("lets watch movie" in my_input):
-            speech="i hope you will find your interesting movie in this link ,  'https://newmoviesonline.tv' have a good time !" 
+
         elif("news" in my_input)or("top headlines" in my_input) or ("headlines" in my_input):
-            y = random.randint(1,6)
-            if y == 1:
-                r = requests.get('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
-                j = r.json()
-                x = j.get('articles')
-                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
-                speech=""+newp+""
-            elif y==2:
-                r = requests.get('https://newsapi.org/v1/articles?source=the-times-of-india&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
-                j = r.json()
-                x = j.get('articles')
-                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
-                speech=""+newp+""   
-            elif y == 3:
-                r = requests.get('https://newsapi.org/v1/articles?source=independent&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
-                j = r.json()
-                x = j.get('articles')
-                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
-                speech=""+newp+""
-            elif y==4:
-                r = requests.get('https://newsapi.org/v1/articles?source=ars-technica&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
-                j = r.json()
-                x = j.get('articles')
-                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
-                speech=""+newp+""
-            elif y == 5:
-                r = requests.get('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
-                j = r.json()
-                x = j.get('articles')
-                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
-                speech=""+newp+""
-            elif y==6:
-                r = requests.get('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=e33b15acbf4c4071bfeb891cd02a99f6')
-                j = r.json()
-                x = j.get('articles')
-                newp = "The headlines are: "+"1. "+x[0]["title"]+"." +" 2. "+x[1]["title"]+"."+" 3. "+x[2]["title"]+"."+" 4. "+x[3]["title"]+"."+" 5. "+x[4]["title"]+"." 
-                speech=""+newp+""
-        elif("lets watch movie" in my_input) or("movie" in my_input):
-            speech="Here is the matching link to find your intrested movie : https://newmoviesonline.tv"
+            x=news()
+            speech=""+x+""
+
         else:
-            try:
-                app_id = "R2LUUJ-QTHXHRHLHK"
-                client = wolframalpha.Client(app_id)
-                r = client.query(my_input)
-                answer = next(r.results).text
-                speech=""+answer+""
-            except:
-                my_input = my_input.split(' ')
-                my_input = " ".join(my_input[2:])
-                answer=wikipedia.summary(my_input,sentences=2)
-                speech=""+answer+""
+            x=alternate()
+            speech=""+x+""
     else:
         speech="no input"
             
@@ -156,7 +98,6 @@ def makeWebhookResult(speech):
             },
         ]
     }
-
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
