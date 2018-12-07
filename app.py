@@ -142,14 +142,19 @@ def makeWebhookResult(speech):
     print(speech)
 
     return {
-        "speech": speech,
         "displayText": speech,
         "messages": [
             {
                 "type": 3,
                 "platform": "facebook",
                 "imageUrl": "https://cdn-images-1.medium.com/max/2000/1*RD1s9xBIvd_ycJUnX12Tyw@2x.png"
-            },]
+            },
+            {
+                "type": 0,
+                "platform": "facebook",
+                "speech": speech,
+            },
+        ]
     }
 
 
