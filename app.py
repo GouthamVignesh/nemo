@@ -60,6 +60,7 @@ def processRequest(req):
      
     elif intent=="Default Fallback Intent":
         my_input=req.get("result").get("resolvedQuery")
+	my_input=my_input.lower()
         if("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
             x=weather()
             speech=""+x+""
