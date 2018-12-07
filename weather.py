@@ -1,4 +1,5 @@
 import json
+import requests
 def weather():
     city = "coimbatore"
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid=d88ce41afbcf7f04e679e5227db5484a&units=metric'.format(city)
