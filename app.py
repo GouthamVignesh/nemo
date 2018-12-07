@@ -59,8 +59,7 @@ def processRequest(req):
 			    speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
      
     elif intent=="Default Fallback Intent":
-        my_input=req.get("result").get("resolvedQuery")
-	my_input=my_input.lower()
+        my_input=(req.get("result").get("resolvedQuery")).lower()
         if("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
             x=weather()
             speech=""+x+""
