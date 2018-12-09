@@ -1,5 +1,6 @@
 from __future__ import print_function
 from future.standard_library import install_aliases
+
 install_aliases()
 
 from urllib.parse import urlparse, urlencode
@@ -17,7 +18,6 @@ from flask import make_response
 import random
 from weather import weather
 from news import news
-
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -39,7 +39,7 @@ def webhook():
 
 
 def processRequest(req):
-    # Parsing the POST request body into a dictionary for easy access. 
+    # Parsing the POST request body into a dictionary for easy access.
     req_dict = json.loads(request.data)
     entity_type = ""
     entity_value = ""
@@ -49,24 +49,23 @@ def processRequest(req):
 
     entity_key_val = req_dict["result"]["parameters"]
     for key in entity_key_val:
-	    entity_value = entity_key_val[key]
-	    entity_type = key 
-    
-    # constructing the resposne string based on intent and the entity.
-    if intent == "Platform exploration help":
-	    if entity_type == "features":
-		    if entity_value == "sign out":
-			    speech = """Here are the steps to update the goals: First, select the project (from the carousel) > click on an objective > update goals"""
-     
-    elif intent=="Default Fallback Intent":
-        my_input=(req.get("result").get("resolvedQuery")).lower()
-        if("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
-            x=weather()
-            speech=""+x+""
+        entity_value = entity_key_val[key]
+        entity_type = key
 
-        elif("news" in my_input)or("top headlines" in my_input) or ("headlines" in my_input):
-            x=news()
-            speech=""+x+""
+        # constructing the resposne string based on intent and the entity.
+    if intent == "shopping-followup":
+        answer="here are the top results found sir"
+        speech =""+ answer +""
+
+    elif intent == "Default Fallback Intent":
+        my_input = (req.get("result").get("resolvedQuery")).lower()
+        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
+            x = weather()
+            speech = "" + x + ""
+
+        elif ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
+            x = news()
+            speech = "" + x + ""
 
         else:
             try:
@@ -81,12 +80,11 @@ def processRequest(req):
                 answer = wikipedia.summary(my_input, sentences=2)
                 speech = "" + answer + ""
     else:
-        speech="no input"
-            
+        speech = "no input"
 
-    
     res = makeWebhookResult(speech)
     return res
+
 
 def makeWebhookResult(speech):
     print("Response:")
@@ -107,6 +105,7 @@ def makeWebhookResult(speech):
             },
         ]
     }
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
