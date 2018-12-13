@@ -53,7 +53,7 @@ def processRequest(req):
         entity_type = key
 
         # constructing the resposne string based on intent and the entity.
-    if intent == "shopping-followup":
+    if intent == "shopping - custom":
         answer="here are the top results found sir"
         speech =""+ answer +""
         res = makeWebhookResult(speech)
