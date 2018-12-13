@@ -53,7 +53,7 @@ def processRequest(req):
         entity_type = key
 
         # constructing the resposne string based on intent and the entity.
-    if intent == "shopping - custom":
+    if intent == "shopping-followup":
         answer="here are the top results found sir"
         speech =""+ answer +""
 
@@ -92,18 +92,7 @@ def makeWebhookResult(speech):
 
     return {
         "displayText": speech,
-        "messages": [
-            {
-                "type": 3,
-                "platform": "facebook",
-                "imageUrl": "https://cdn-images-1.medium.com/max/2000/1*RD1s9xBIvd_ycJUnX12Tyw@2x.png"
-            },
-            {
-                "type": 0,
-                "platform": "facebook",
-                "speech": speech,
-            },
-        ]
+        "speech": speech
     }
 
 
