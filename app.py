@@ -56,16 +56,19 @@ def processRequest(req):
     if intent == "shopping-followup":
         answer="here are the top results found sir"
         speech =""+ answer +""
+        res = makeWebhookResult(speech)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
         if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
             x = weather()
             speech = "" + x + ""
+            res = makeWebhookResult(speech)
 
         elif ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
             x = news()
             speech = "" + x + ""
+            res = makeWebhookResult(speech)
 
         else:
             try:
@@ -74,15 +77,18 @@ def processRequest(req):
                 r = client.query(my_input)
                 answer = next(r.results).text
                 speech = "" + answer + ""
+                res = makeWebhookResult(speech)
             except:
                 my_input = my_input.split(' ')
                 my_input = " ".join(my_input[2:])
                 answer = wikipedia.summary(my_input, sentences=2)
                 speech = "" + answer + ""
+                res = makeWebhookResult(speech)
     else:
         speech = "no input"
+        res = makeWebhookResult(speech)
 
-    res = makeWebhookResult(speech)
+
     return res
 
 
