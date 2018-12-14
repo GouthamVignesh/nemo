@@ -82,6 +82,6 @@ def webscrap(search):
         price=(search_results[i]['Price'])
         image_link(search_results[i]['Image Link'])
     """
-    return search_results[0]['Product Name'],search_results[0]['Price'],search_results[0]['Image Link']
+    return search_results
 
     """"""
