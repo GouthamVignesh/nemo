@@ -130,7 +130,7 @@ def makeWebhookResult(search_result):
         b["messages"][0]["title"] =product_name
         b["messages"][0]["subtitle"] =price
         b["messages"][0]["iamgeUrl"] =image_link
-        a.append(b)
+        a.append(b["messages"][0])
     return a
 
 if __name__ == '__main__':
