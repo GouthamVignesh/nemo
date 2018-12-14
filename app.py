@@ -18,7 +18,7 @@ from flask import make_response
 import random
 from weather import weather
 from news import news
-from webscrap import webscrap
+
 # Flask app should start in global layout
 app = Flask(__name__)
 
@@ -56,8 +56,8 @@ def processRequest(req):
     if intent == "shopping - custom":
         my_input = (req.get("result").get("resolvedQuery")).lower()
         speech=webscrap(my_input)
-        res = makecardwebhookresult(speech)
-
+        for i in speech:
+            res = makecardwebhookresult(i['Product Name'],i['Price'],i['Image Link'])
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -102,26 +102,21 @@ def makeWebhookResult(speech):
         "speech": speech
     }
 
-def makecardwebhookresult(speech):
-    return {
-        "Speech": speech
-    }
-
-
-    """for copy in speech:
-        {
+def makecardwebhookresult(product_name,price,imageurl):
+    {
           "type": 1,
           "platform": "facebook",
-          "title": str(copy['Product Name']),
-          "subtitle": str(copy['Price']),
-          "imageUrl": str(copy['Image Link']),
-          "buttons": [
+          "title": product_name,
+          "subtitle": price,
+          "imageUrl": imageurl,
+          "buttons":
+           [
             {
               "text": "read more about me ?",
               "postback": "https://medium.com/swlh/what-is-a-chatbot-and-how-to-use-it-for-your-business-976ec2e0a99f"
             }
            ]
-        }"""
+    } 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
