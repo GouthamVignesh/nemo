@@ -111,7 +111,7 @@ def makeWebhookResult(product_name, price, url="https://www.ometrics.com/blog/wp
                 "platform": "facebook",
                 "title": product_name,
                 "subtitle": price,
-                "imageUrl": url,
+                "imageUrl": ""+url+"",
                 "buttons": [
                     {
                         "text": "read more about me ?",
