@@ -55,9 +55,8 @@ def processRequest(req):
         # constructing the resposne string based on intent and the entity.
     if intent == "shopping - custom":
         my_input = (req.get("result").get("resolvedQuery")).lower()
-        speech=webscrap(my_input)
-        for i in speech:
-            res = makecardwebhookresult(i['Product Name'],i['Price'],i['Image Link'])
+        product_name,price,imageurl=webscrap(my_input)
+        res = makecardwebhookresult(product_name,price,imageurl)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -116,7 +115,7 @@ def makecardwebhookresult(product_name,price,imageurl):
               "postback": "https://medium.com/swlh/what-is-a-chatbot-and-how-to-use-it-for-your-business-976ec2e0a99f"
             }
            ]
-    } 
+    }
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
