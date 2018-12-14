@@ -54,9 +54,10 @@ def processRequest(req):
 
         # constructing the resposne string based on intent and the entity.
     if intent == "shopping - custom":
-        my_input = (req.get("result").get("resolvedQuery")).lower()
-        speech=webscrap(my_input)
-        res = makecardwebhookresult(speech)
+        speech = (req.get("result").get("resolvedQuery")).lower()
+        """speech=webscrap(my_input)
+        res = makecardwebhookresult(speech)"""
+        res = makeWebhookResult(speech)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -101,7 +102,7 @@ def makeWebhookResult(speech):
         "speech": speech
     }
 
-def makecardwebhookresult(speech):
+"""def makecardwebhookresult(speech):
 
     for copy in speech:
         {
@@ -116,7 +117,7 @@ def makecardwebhookresult(speech):
               "postback": "https://medium.com/swlh/what-is-a-chatbot-and-how-to-use-it-for-your-business-976ec2e0a99f"
             }
            ]
-        }
+        }"""
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
