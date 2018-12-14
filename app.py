@@ -56,8 +56,8 @@ def processRequest(req):
         # constructing the resposne string based on intent and the entity.
     if intent == "shopping - custom":
         my_input = (req.get("result").get("resolvedQuery")).lower()
-        product_name, price, url = webscrap(my_input)
-        res = makeWebhookResult(product_name, price, url)
+        search_results = webscrap(my_input)
+        res = makeWebhookResult(search_results)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -103,29 +103,40 @@ def makeWebhookResult(speech):
     }
 
 
-def makeWebhookResult(product_name, price, url):
-    return {
+def makeWebhookResult(search_result):
+    a=[]
+    b={
         "messages": [
             {
                 "type": 1,
                 "platform": "facebook",
-                "title": product_name,
-                "subtitle": price,
-                "imageUrl": url,
+                "title": "",
+                "subtitle": "",
+                "imageUrl": "",
                 "buttons": [
                     {
-                        "text": "read more about me ?",
-                        "postback": "https://medium.com/swlh/what-is-a-chatbot-and-how-to-use-it-for-your-business-976ec2e0a99f"
+                        "text": "click here for more info ?",
+                        "postback": "https://spicier-raincoats.000webhostapp.com"
                     }
                 ]
 
     }
     ]
     }
-
+    for i in range(0,len(search_result)):
+        product_name = search_result[i]['Product Name']
+        price = search_result[i]['Price']
+        image_link=search_result[i]['Image Link']
+        b["messages"][0]["title"] =product_name
+        b["messages"][0]["subtitle"] =price
+        b["messages"][0]["iamgeUrl"] =image_link
+        a.append(b)
+    return a
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
+
+
 
     print("Starting app on port %d" % port)
 
