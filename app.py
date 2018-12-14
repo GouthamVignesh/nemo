@@ -18,6 +18,7 @@ from flask import make_response
 import random
 from weather import weather
 from news import news
+from webscrap import webscrap
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -54,12 +55,14 @@ def processRequest(req):
 
         # constructing the resposne string based on intent and the entity.
     if intent == "shopping - custom":
-        speech = (req.get("result").get("resolvedQuery")).lower()
-        res=makeWebhookResult(speech)
+        my_input = (req.get("result").get("resolvedQuery")).lower()
+        product_name, price, url = webscrap(my_input)
+        res = makeWebhookResult(product_name, price, url)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
-        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
+        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or (
+                'tell me about weather' in my_input) or ('whats the climate' in my_input):
             x = weather()
             speech = "" + x + ""
             res = makeWebhookResult(speech)
@@ -87,7 +90,6 @@ def processRequest(req):
         speech = "no input"
         res = makeWebhookResult(speech)
 
-
     return res
 
 
@@ -101,7 +103,27 @@ def makeWebhookResult(speech):
     }
 
 
-  
+def makeWebhookResult(product_name, price, url):
+    return {
+        "messages": [
+            {
+                "type": 1,
+                "platform": "facebook",
+                "title": product_name,
+                "subtitle": price,
+                "imageUrl": url,
+                "buttons": [
+                    {
+                        "text": "read more about me ?",
+                        "postback": "https://medium.com/swlh/what-is-a-chatbot-and-how-to-use-it-for-your-business-976ec2e0a99f"
+                    }
+                ]
+
+    }
+    ]
+    }
+
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
