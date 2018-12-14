@@ -111,7 +111,7 @@ def makeWebhookResult(product_name, price, url):
                 "platform": "facebook",
                 "title": product_name,
                 "subtitle": price,
-                "imageUrl": url,
+                "imageUrl": "https://www.ometrics.com/blog/wp-content/uploads/2017/12/chat_bot-01.jpg",
                 "buttons": [
                     {
                         "text": "read more about me ?",
