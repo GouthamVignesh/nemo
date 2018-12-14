@@ -55,12 +55,13 @@ def processRequest(req):
         # constructing the resposne string based on intent and the entity.
     if intent == "shopping - custom":
         my_input = (req.get("result").get("resolvedQuery")).lower()
-        product_name,price,imageurl=webscrap(my_input)
-        res = makecardwebhookresult(product_name,price,imageurl)
+        product_name, price, imageurl = webscrap(my_input)
+        res = makecardwebhookresult(product_name, price, imageurl)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
-        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
+        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or (
+                'tell me about weather' in my_input) or ('whats the climate' in my_input):
             x = weather()
             speech = "" + x + ""
             res = makeWebhookResult(speech)
@@ -88,7 +89,6 @@ def processRequest(req):
         speech = "no input"
         res = makeWebhookResult(speech)
 
-
     return res
 
 
@@ -101,21 +101,25 @@ def makeWebhookResult(speech):
         "speech": speech
     }
 
-def makecardwebhookresult(product_name,price,imageurl):
+
+def makecardwebhookresult(product_name, price, imageurl):
+    return
     {
-          "type": 1,
-          "platform": "facebook",
-          "title": product_name,
-          "subtitle": price,
-          "imageUrl": imageurl,
-          "buttons":
-           [
-            {
-              "text": "read more about me ?",
-              "postback": "https://medium.com/swlh/what-is-a-chatbot-and-how-to-use-it-for-your-business-976ec2e0a99f"
-            }
-           ]
+        "type": 1,
+        "platform": "facebook",
+        "title": product_name,
+        "subtitle": price,
+        "imageUrl": imageurl,
+        "buttons":
+            [
+                {
+                    "text": "read more about me ?",
+                    "postback": "https://medium.com/swlh/what-is-a-chatbot-and-how-to-use-it-for-your-business-976ec2e0a99f"
+                }
+            ]
     }
+
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
