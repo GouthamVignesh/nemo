@@ -105,21 +105,22 @@ def makeWebhookResult(speech):
 
 def makeWebhookResult(search_result):
     a = {"messages": []}
-    b = {
-        "type": 1,
-        "platform": "facebook",
-        "title": "",
-        "subtitle": "",
-        "imageUrl": "",
-        "buttons": [
-            {
-                "text": "click here for more info ?",
-                "postback": "https://spicier-raincoats.000webhostapp.com"
-            }
-        ]
 
-    }
     for i in range(0, len(search_result)):
+        b = {
+            "type": 1,
+            "platform": "facebook",
+            "title": "",
+            "subtitle": "",
+            "imageUrl": "",
+            "buttons": [
+                {
+                    "text": "click here for more info ?",
+                    "postback": "https://spicier-raincoats.000webhostapp.com"
+                }
+            ]
+
+        }
         product_name = search_result[i]['Product Name']
         price = search_result[i]['Price']
         image_link = search_result[i]['Image Link']
