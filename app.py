@@ -104,24 +104,30 @@ def makeWebhookResult(speech):
 
 
 def makeWebhookResult(search_result):
-    return{
-        "messages": [
+    a = {"messages": []}
+    b = {
+        "type": 1,
+        "platform": "facebook",
+        "title": "",
+        "subtitle": "",
+        "imageUrl": "",
+        "buttons": [
             {
-                "type": 1,
-                "platform": "facebook",
-                "title": product_name,
-                "subtitle": price,
-                "imageUrl": url,
-                "buttons": [
-                    {
-                        "text": "click here for more info ?",
-                        "postback": "https://spicier-raincoats.000webhostapp.com"
-                    }
-                ]
+                "text": "click here for more info ?",
+                "postback": "https://spicier-raincoats.000webhostapp.com"
+            }
+        ]
 
     }
-    ]
-    }
+    for i in range(0, len(search_result)):
+        product_name = search_result[i]['Product Name']
+        price = search_result[i]['Price']
+        image_link = search_result[i]['Image Link']
+        b["title"] = product_name
+        b["subtitle"] = price
+        b["imageUrl"] = image_link
+        a["messages"].append(b)
+    return a
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
