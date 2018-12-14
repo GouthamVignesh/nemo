@@ -54,10 +54,10 @@ def processRequest(req):
 
         # constructing the resposne string based on intent and the entity.
     if intent == "shopping - custom":
-        speech = (req.get("result").get("resolvedQuery")).lower()
-        """speech=webscrap(my_input)
-        res = makecardwebhookresult(speech)"""
-        res = makeWebhookResult(speech)
+        my_input = (req.get("result").get("resolvedQuery")).lower()
+        speech=webscrap(my_input)
+        res = makecardwebhookresult(speech)
+
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -102,15 +102,19 @@ def makeWebhookResult(speech):
         "speech": speech
     }
 
-"""def makecardwebhookresult(speech):
+def makecardwebhookresult(speech):
+    return {
+        "Speech": speech
+    }
 
-    for copy in speech:
+
+    """for copy in speech:
         {
           "type": 1,
           "platform": "facebook",
-          "title": copy['Product Name'],
-          "subtitle": copy['Price'],
-          "imageUrl": copy['Image Link'],
+          "title": str(copy['Product Name']),
+          "subtitle": str(copy['Price']),
+          "imageUrl": str(copy['Image Link']),
           "buttons": [
             {
               "text": "read more about me ?",
