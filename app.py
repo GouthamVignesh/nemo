@@ -103,7 +103,7 @@ def makeWebhookResult(speech):
     }
 
 
-def makeWebhookResult(product_name, price, url):
+def makeWebhookResult(product_name, price, url="https://www.ometrics.com/blog/wp-content/uploads/2017/12/chat_bot-01.jpg"):
     return {
         "messages": [
             {
@@ -111,7 +111,7 @@ def makeWebhookResult(product_name, price, url):
                 "platform": "facebook",
                 "title": product_name,
                 "subtitle": price,
-                "imageUrl": "https://www.ometrics.com/blog/wp-content/uploads/2017/12/chat_bot-01.jpg",
+                "imageUrl": url,
                 "buttons": [
                     {
                         "text": "read more about me ?",
