@@ -57,7 +57,7 @@ def processRequest(req):
     if intent == "shopping - custom":
         my_input = (req.get("result").get("resolvedQuery")).lower()
         product_name, price, url = webscrap(my_input)
-        url = "https://www.ometrics.com/blog/wp-content/uploads/2017/12/chat_bot-01.jpg"
+        url = 'https://www.ometrics.com/blog/wp-content/uploads/2017/12/chat_bot-01.jpg'
         res = makeWebhookResult(product_name, price, url)
 
     elif intent == "Default Fallback Intent":
