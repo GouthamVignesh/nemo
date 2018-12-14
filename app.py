@@ -104,10 +104,8 @@ def makeWebhookResult(speech):
 
 
 def makeWebhookResult(search_result):
-    a=[]
+    a={"messages": []}
     b={
-        "messages": [
-            {
                 "type": 1,
                 "platform": "facebook",
                 "title": "",
@@ -121,16 +119,14 @@ def makeWebhookResult(search_result):
                 ]
 
     }
-    ]
-    }
     for i in range(0,len(search_result)):
         product_name = search_result[i]['Product Name']
         price = search_result[i]['Price']
         image_link=search_result[i]['Image Link']
-        b["messages"][0]["title"] =product_name
-        b["messages"][0]["subtitle"] =price
-        b["messages"][0]["iamgeUrl"] =image_link
-        a.append(b["messages"][0])
+        b["title"] =product_name
+        b["subtitle"] =price
+        b["imageUrl"] =image_link
+        a["messages"].append(b)
     return a
 
 if __name__ == '__main__':
