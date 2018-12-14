@@ -57,7 +57,7 @@ def webscrap(search):
                     'Image Link': 'https://spicier-raincoats.000webhostapp.com/wp-content/uploads/2018/12/photo-1459550532302-ba13832edcdf-300x300.jpg'}
                    ]
     # Items in store
-    Items = ['shoe', 'tshirts','shoes','camera', 'fashion', 'accessories', 'PS4', 'DSLR', 'laptop', 'mobile', 'watch', 'VR Box']
+    Items = ['shoes','shoe', 'tshirts','shoes','camera', 'fashion', 'accessories', 'PS4', 'DSLR', 'laptop', 'mobile', 'watch', 'VR Box']
     # Verifying item available or not
     search = search.lower()
     flag = False
@@ -82,6 +82,6 @@ def webscrap(search):
         price=(search_results[i]['Price'])
         image_link(search_results[i]['Image Link'])
     """
-    return search_results
+    return search_results[0]['Product Name'],search_results[0]['Price'],search_results[0]['Image Link']
 
     """"""
