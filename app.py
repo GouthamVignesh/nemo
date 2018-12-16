@@ -58,6 +58,8 @@ def processRequest(req):
         my_input = (req.get("result").get("resolvedQuery")).lower()
         search_results = webscrap(my_input)
         res = makeWebhookResult(search_results)
+    elif intent=="showwallet":
+        res=walletresult(str(10))
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -129,6 +131,17 @@ def makeWebhookResult(search_result):
         a["messages"].append(b)
     return a
 
+def walletresult(balance):
+    return{
+           "messages":[
+                   {
+          "type": 1,
+          "platform": "facebook",
+          "title": "Your Current Balance in wallet is",
+          "subtitle": balance,
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtRG8oJRtTB_t-7R5x3YQsPmFXxiXLzVVWhdDdp4vdqpgUQL749Q",
+          "buttons": []
+        }] }
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
