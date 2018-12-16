@@ -59,7 +59,8 @@ def processRequest(req):
         search_results = webscrap(my_input)
         res = makeWebhookResult(search_results)
     elif intent=="showwallet":
-        res=makeWebhookResult(int(10))
+        bal=10
+        res= makeWebhookResult(bal)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
