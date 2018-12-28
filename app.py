@@ -54,15 +54,9 @@ def processRequest(req):
         entity_type = key
 
         # constructing the resposne string based on intent and the entity.
-    if intent == "shopping - custom":
-        my_input = (req.get("result").get("resolvedQuery")).lower()
-        search_results = webscrap(my_input)
-        res = makeWebhookResult(search_results)
-    elif intent=="showwallet":
-        bal=10
-        res= makeWebhookResult(bal)
+   
 
-    elif intent == "Default Fallback Intent":
+    if intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
         if ("weather" in my_input) or ('tell me about weather condition' in my_input) or (
                 'tell me about weather' in my_input) or ('whats the climate' in my_input):
@@ -132,18 +126,6 @@ def makeWebhookResult(search_result):
         a["messages"].append(b)
     return a
 
-def makeWebhookResult(bal):
-    bal=str(bal)
-    return{
-           "messages":[
-                   {
-          "type": 1,
-          "platform": "facebook",
-          "title": "Your Current Balance in wallet is",
-          "subtitle": bal,
-          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtRG8oJRtTB_t-7R5x3YQsPmFXxiXLzVVWhdDdp4vdqpgUQL749Q",
-          "buttons": []
-        }] }
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
