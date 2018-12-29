@@ -18,7 +18,6 @@ from flask import make_response
 import random
 from weather import weather
 from news import news
-from webscrap import webscrap
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -54,11 +53,14 @@ def processRequest(req):
         entity_type = key
 
         # constructing the resposne string based on intent and the entity.
+    if intent == "shopping - custom":
+        answer="here are the top results found sir"
+        speech =""+ answer +""
+        res = makeWebhookResult(speech)
 
-    if intent == "Default Fallback Intent":
+    elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
-        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or (
-                'tell me about weather' in my_input) or ('whats the climate' in my_input):
+        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
             x = weather()
             speech = "" + x + ""
             res = makeWebhookResult(speech)
@@ -86,6 +88,7 @@ def processRequest(req):
         speech = "no input"
         res = makeWebhookResult(speech)
 
+
     return res
 
 
@@ -97,33 +100,6 @@ def makeWebhookResult(speech):
         "displayText": speech,
         "speech": speech
     }
-
-
-def makeWebhookResult(search_result):
-    a = {"messages": []}
-    for i in range(0, len(search_result)):
-        b = {
-            "type": 1,
-            "platform": "facebook",
-            "title": "",
-            "subtitle": "",
-            "imageUrl": "",
-            "buttons": [
-                {
-                    "text": "click here for more info ?",
-                    "postback": "https://spicier-raincoats.000webhostapp.com"
-                }
-            ]
-
-        }
-        product_name = search_result[i]['Product Name']
-        price = search_result[i]['Price']
-        image_link = search_result[i]['Image Link']
-        b["title"] = product_name
-        b["subtitle"] = price
-        b["imageUrl"] = image_link
-        a["messages"].append(b)
-    return a
 
 
 if __name__ == '__main__':
