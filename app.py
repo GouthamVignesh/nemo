@@ -54,7 +54,6 @@ def processRequest(req):
         entity_type = key
 
         # constructing the resposne string based on intent and the entity.
-   
 
     if intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -125,6 +124,7 @@ def makeWebhookResult(search_result):
         b["imageUrl"] = image_link
         a["messages"].append(b)
     return a
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
