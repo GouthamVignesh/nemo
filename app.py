@@ -18,6 +18,7 @@ from flask import make_response
 import random
 from weather import weather
 from news import news
+from firebase import firebase
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -69,6 +70,11 @@ def processRequest(req):
             x = news()
             speech = "" + x + ""
             res = makeWebhookResult(speech)
+        elif ("firebase" in my_input):
+            firebase=firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/user/')
+            result =firebase.get('two',None)
+            speech=""+result+""
+            res=makeWebhookResult(speech)
 
         else:
             try:
