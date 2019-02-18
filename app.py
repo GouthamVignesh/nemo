@@ -54,10 +54,11 @@ def processRequest(req):
         entity_type = key
 
         # constructing the resposne string based on intent and the entity.
-    if intent == "shopping - custom":
-        answer="here are the top results found sir"
-        speech =""+ answer +""
-        res = makeWebhookResult(speech)
+    if ("firebase" in my_input):
+        firebase=firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/user/')
+        result =firebase.get('two',None)
+        speech=" "+result+" "
+        res=makeWebhookResult(speech)
 
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
@@ -70,12 +71,6 @@ def processRequest(req):
             x = news()
             speech = "" + x + ""
             res = makeWebhookResult(speech)
-        elif ("firebase" in my_input):
-            firebase=firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/user/')
-            result =firebase.get('two',None)
-            speech=""+result+""
-            res=makeWebhookResult(speech)
-
         else:
             try:
                 app_id = "R2LUUJ-QTHXHRHLHK"
