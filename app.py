@@ -54,7 +54,7 @@ def processRequest(req):
         entity_type = key
 
         # constructing the resposne string based on intent and the entity.
-    if ("firebase" in my_input):
+    if intent ("firebase" in my_input):
         firebase=firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/user/')
         result =firebase.get('two',None)
         speech=" "+result+" "
