@@ -64,9 +64,9 @@ def processRequest(req):
             res = makeWebhookResult(speech)
 
         elif("firebase" in my_input):
-            firebase = firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/user/')
-            result = firebase.get('two', None)
-            speech = " " + result + " "
+            firebase = firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/a/')
+            result = firebase.get('ABDOMINAL PAIN', None)
+            speech = " " + str(result) + " "
             res = makeWebhookResult(speech)
 
         elif ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
