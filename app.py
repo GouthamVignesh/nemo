@@ -23,6 +23,7 @@ from firebase import firebase
 # Flask app should start in global layout
 app = Flask(__name__)
 
+
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
@@ -37,38 +38,41 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+
 def processRequest(req):
+    # Parsing the POST request body into a dictionary for easy access.
     req_dict = json.loads(request.data)
     entity_type = ""
     entity_value = ""
-    fulfillmentText = ""
+    speech = ""
     # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
-    intent = req_dict["queryResult"]["intent"]["displayName"]
+    intent = req_dict["result"]["metadata"]["intentName"]
 
-    entity_key_val = req_dict["queryresult"]["parameters"]
+    entity_key_val = req_dict["result"]["parameters"]
     for key in entity_key_val:
         entity_value = entity_key_val[key]
         entity_type = key
 
- # constructing the resposne string based on intent and the entity.
+        # constructing the resposne string based on intent and the entity.
+
 
     if intent == "Default Fallback Intent":
-        my_input = (req.get("queryResult").get("queryText")).lower()
+        my_input = (req.get("result").get("resolvedQuery")).lower()
         if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
             x = weather()
-            fulfillmentText = "" + x + ""
-            res = makeWebhookResult(fulfillmentText)
+            speech = "" + x + ""
+            res = makeWebhookResult(speech)
 
         elif("firebase" in my_input):
             firebase = firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/a/')
             result = firebase.get('ABDOMINAL PAIN', None)
-            fulfillmentText = " " + str(result) + " "
-            res = makeWebhookResult(fulfillmentText)
+            speech = " " + str(result) + " "
+            res = makeWebhookResult(speech)
 
         elif ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
             x = news()
-            fulfillmentText = "" + x + ""
-            res = makeWebhookResult(fulfillmentText)
+            speech = "" + x + ""
+            res = makeWebhookResult(speech)
         else:
             try:
                 app_id = "R2LUUJ-QTHXHRHLHK"
@@ -84,20 +88,20 @@ def processRequest(req):
                 speech = "" + answer + ""
                 res = makeWebhookResult(speech)
     else:
-        fulfillmentText = "no input"
-        res = makeWebhookResult(fulfillmentText)
+        speech = "no input"
+        res = makeWebhookResult(speech)
 
 
     return res
 
 
-def makeWebhookResult(fulfillmentText):
+def makeWebhookResult(speech):
     print("Response:")
-    print(fulfillmentText)
+    print(speech)
 
     return {
-        "Text": fulfillmentText,
-        "fulfillmentText": fulfillmentText
+        "displayText": speech,
+        "speech": speech
     }
 
 
