@@ -43,7 +43,7 @@ def processRequest(req):
     entity_value = ""
     fulfillmentText = ""
     # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
-    intent = req_dict["queryResult"]["queryText"]
+    intent = req_dict["queryResult"]["intent"]["displayName"]
 
     entity_key_val = req_dict["queryresult"]["parameters"]
     for key in entity_key_val:
