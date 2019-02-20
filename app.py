@@ -53,7 +53,7 @@ def processRequest(req):
  # constructing the resposne string based on intent and the entity.
 
     if intent == "Default Fallback Intent":
-        my_input = (req.get("queryresult").get("queryText")).lower()
+        my_input = (req.get("queryResult").get("queryText")).lower()
         if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
             x = weather()
             fulfillmentText = "" + x + ""
