@@ -1,6 +1,7 @@
 from __future__ import print_function
 from future.standard_library import install_aliases
 
+
 install_aliases()
 
 from urllib.parse import urlparse, urlencode
@@ -64,7 +65,7 @@ def processRequest(req):
             res = makeWebhookResult(speech)
 
         elif("firebase" in my_input):
-            firebase = firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/a/')
+            firebase = firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/A/')
             result = firebase.get('ABDOMINAL PAIN', None)
             speech = " " + str(result) + " "
             res = makeWebhookResult(speech)
