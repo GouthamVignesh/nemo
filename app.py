@@ -19,7 +19,7 @@ from flask import make_response
 import random
 from weather import weather
 from news import news
-from firebase import firebase
+from database import database
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -65,13 +65,9 @@ def processRequest(req):
             res = makeWebhookResult(speech)
 
         elif("firebase" in my_input):
-            firebase = firebase.FirebaseApplication('https://nemo-bot-9ae9c.firebaseio.com/A/')
-            result = firebase.get('ABDOMINAL PAIN', None)
-            if result == "":
-                speech="error"
-            else :
-                speech = " " + str(result) + " "
-                res = makeWebhookResult(speech)
+            x= database()
+            speech = "" + x + ""
+            res = makeWebhookResult(speech)
 
         elif ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
             x = news()
