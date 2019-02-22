@@ -21,6 +21,7 @@ from weather import weather
 from news import news
 from database import database
 from nearby_pharmacy import nearby_pharmacy
+from doctor_find import doctor_find
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -66,6 +67,12 @@ def processRequest(req):
         x= nearby_pharmacy()
         speech = "" + x + ""
         res = makeWebhookResult(speech)
+
+    elif intent == "find doctor":
+        x= doctor_find()
+        speech = "" + x + ""
+        res = makeWebhookResult(speech)
+
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
         if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
