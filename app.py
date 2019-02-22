@@ -22,7 +22,7 @@ from news import news
 from database import database
 from doctor_find import doctor_find
 from hospitalfind import hospitalfind
-from nearby_pharmacy import nearby_pharmachy
+from nearby_pharmacy import nearby_pharmacy
 # Flask app should start in global layout
 app = Flask(__name__)
 
