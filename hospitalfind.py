@@ -14,7 +14,7 @@ def hospitalfind() :
     flag = 0
     for place in query_result.places:
         place.get_details()
-        strr = strr + "\n Name :" + (str(place.name).upper()) + "\n Address:" + str(place.formatted_address) + "\n Phone Number :" + (str(place.international_phone_number).upper()) + "\n Map Url :" + str(place.url) + "\n Web Link :" + str(place.website) + "\n Ratings:" + str(place.rating) +"\n \n"
+        strr = strr + "\n Name :" + (str(place.name).upper()) + "\n Address:" + str(place.formatted_address) + "\n Phone Number :" + (str(place.international_phone_number).upper()) + "\n Map Url :" + str(place.url) + "\n Web Link :" + str(place.website) + "\n Ratings:" + str(place.rating) ++"\n"+("_"*50)+"\n"
 
         flag = flag+1
         if flag == 5:
