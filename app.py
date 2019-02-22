@@ -61,6 +61,10 @@ def processRequest(req):
         x= database(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
+    elif intent == "pharmacy":
+        x= nearby_pharmacy()
+        speech = "" + x + ""
+        res = makeWebhookResult(speech)
     elif intent == "Default Fallback Intent":
         my_input = (req.get("result").get("resolvedQuery")).lower()
         if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
