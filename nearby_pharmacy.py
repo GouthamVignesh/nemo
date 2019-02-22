@@ -1,7 +1,7 @@
 from googleplaces import GooglePlaces, types
 
 
-def doctor_find() :
+def nearby_pharmacy() :
     YOUR_API_KEY = 'AIzaSyDkfWiMGRhbIWJwk578id9e2X2Nhd7n-90'
 
     google_places = GooglePlaces(YOUR_API_KEY)
