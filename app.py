@@ -57,8 +57,8 @@ def processRequest(req):
         # constructing the resposne string based on intent and the entity.
 
     if intent== "medical issues - custom":
-        my_input = (req.get("result").get("resolvedQuery")).lower()
-        x= database()
+        my_input = (req.get("result").get("parameters").get("medical")).lower()
+        x= database(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
     elif intent == "Default Fallback Intent":
