@@ -4,3 +4,4 @@ wolframalpha==3.0
 wikipedia==1.4.0
 python-firebase==1.2
 gcloud==0.18.3
+python-google-places==1.4.1
