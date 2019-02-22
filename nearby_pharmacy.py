@@ -22,3 +22,5 @@ def nearby_pharmacy() :
     return strr
     #returns nearby Pharmacy
     # dependency : python-google-places 1.4.1
+
+
