@@ -20,10 +20,9 @@ import random
 from weather import weather
 from news import news
 from database import database
-from nearby_pharmacy import nearby_pharmacy
 from doctor_find import doctor_find
 from hospitalfind import hospitalfind
-
+from nearby_pharmacy import nearby_pharmachy
 # Flask app should start in global layout
 app = Flask(__name__)
 
