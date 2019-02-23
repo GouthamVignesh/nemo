@@ -1,10 +1,3 @@
-def func(result):
-    output = ""
-    for i in result:
-        output += str(i)
-        output += "\n" + str(result[i])
-        output += "\n\n"
-    return  output
 def pregnancy(data):
     from firebase import firebase
     firebase = firebase.FirebaseApplication('https://preganency.firebaseio.com/PREGANENCY/')
@@ -28,3 +21,10 @@ def pregnancy(data):
         z=('THIRD TRIMESTER'+'\n'+z)
         return z
 
+def func(result):
+    output = ""
+    for i in result:
+        output += str(i)
+        output += "\n" + str(result[i])
+        output += "\n\n"
+    return  output
