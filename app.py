@@ -23,6 +23,7 @@ from database import database
 from doctor_find import doctor_find
 from hospitalfind import hospitalfind
 from nearby_pharmacy import nearby_pharmacy
+from pregnancy import pregnancy
 # Flask app should start in global layout
 app = Flask(__name__)
 
@@ -63,6 +64,12 @@ def processRequest(req):
         x= database(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
+    elif intent ="pregnancy - custom":
+        my_input = (req.get("result").get("contexts").get("parameters").get("number"))
+        my_input=int(my_input)
+        x=pregnancy(my_input)
+        speech = ""+x+""
+        res=makeWebhookResult(speech)
     elif intent == "pharmacy":
         x= nearby_pharmacy()
         speech = "" + x + ""
