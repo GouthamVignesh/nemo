@@ -8,7 +8,7 @@ def nearby_pharmacy() :
 
     query_result = google_places.nearby_search(
         location='Coimbatore, Tamil Nadu', keyword='pharmacy',
-        radius=2000, types=[types.TYPE_DOCTOR])
+        radius=2000, types=[types.TYPE_PHARMACY])
 
     strr = " "
     flag = 0
