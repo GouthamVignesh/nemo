@@ -24,6 +24,7 @@ from doctor_find import doctor_find
 from hospitalfind import hospitalfind
 from nearby_pharmacy import nearby_pharmacy
 from pregnancy import pregnancy
+from menstrualcycle import menstrualcycle
 # Flask app should start in global layout
 app = Flask(__name__)
 
@@ -65,6 +66,11 @@ def processRequest(req):
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
+    elif intent == "menstrualcycle":
+        x=menstrualcycle()
+        speech = "" + x + ""
+        res = makeWebhookResult(speech)
+        
     elif intent =="pregnancy - custom":
         data = (req.get("result").get("parameters").get("number"))
         x=pregnancy(data)
