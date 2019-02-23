@@ -65,8 +65,8 @@ def processRequest(req):
         speech = "" + x + ""
         res = makeWebhookResult(speech)
     elif intent ="pregnancy - custom":
-        my_input = (req.get("result").get("parameters").get("number"))
-        x=pregnancy(my_input)
+        data = (req.get("result").get("parameters").get("number"))
+        x=pregnancy(data)
         speech = ""+x+""
         res=makeWebhookResult(speech)
     elif intent == "pharmacy":
