@@ -47,7 +47,7 @@ def processRequest(req):
         return 'json error'
 
     if action== "medicalissues.medicalissues-custom":
-        my_input = (req.get("result").get("parameters").get("medical")).lower()
+        my_input = (req.get("queryResult").get("parameters").get("medical")).lower()
         x= database(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
@@ -58,7 +58,7 @@ def processRequest(req):
         res = makeWebhookResult(speech)
         
     elif action =="pregnancy.pregnancy-custom":
-        data = (req.get("result").get("parameters").get("number"))
+        data = (req.get("queryResult").get("parameters").get("number"))
         x=pregnancy(data)
         speech = ""+x+""
         res=makeWebhookResult(speech)
