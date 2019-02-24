@@ -16,6 +16,7 @@ import requests
 from flask import Flask
 from flask import request
 from flask import make_response
+from flask import jsonify,request
 import random
 from weather import weather
 from news import news
@@ -33,66 +34,52 @@ app = Flask(__name__)
 def webhook():
     req = request.get_json(silent=True, force=True)
     print("Request:")
-    print(json.dumps(req, indent=4))
-
     res = processRequest(req)
-
-    res = json.dumps(res, indent=4)
     print(res)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    return r
-
+    return make_response(jsonify({'fulfillmentText':res}))
 
 def processRequest(req):
     # Parsing the POST request body into a dictionary for easy access.
-    req_dict = json.loads(request.data)
-    entity_type = ""
-    entity_value = ""
     speech = ""
-    # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
-    intent = req_dict["result"]["metadata"]["intentName"]
+    try:
+        action = req.get('queryResult').get('action')
+    except AttributeError:
+        return 'json error'
 
-    entity_key_val = req_dict["result"]["parameters"]
-    for key in entity_key_val:
-        entity_value = entity_key_val[key]
-        entity_type = key
-
-        # constructing the resposne string based on intent and the entity.
-
-    if intent== "medical issues - custom":
+    if action== "medicalissues.medicalissues-custom":
         my_input = (req.get("result").get("parameters").get("medical")).lower()
         x= database(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-    elif intent == "menstrualcycle":
+    elif action == "menstrualcycle":
         x=menstrualcycle()
         speech = "" + x + ""
         res = makeWebhookResult(speech)
         
-    elif intent =="pregnancy - custom":
+    elif action =="pregnancy.pregnancy-custom":
         data = (req.get("result").get("parameters").get("number"))
         x=pregnancy(data)
         speech = ""+x+""
         res=makeWebhookResult(speech)
-    elif intent == "pharmacy":
+    elif action == "pharmacy":
         x= nearby_pharmacy()
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-    elif intent == "find doctor":
+    elif action == "finddoctor":
         x= doctor_find()
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-    elif intent =="find hospital":
+    elif action =="findhospital":
         x=hospitalfind()
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-    elif intent == "Default Fallback Intent":
-        my_input = (req.get("result").get("resolvedQuery")).lower()
+
+    elif action == "input.unknown":
+        my_input = req.get('queryResult').get('queryText').lower()
         if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
             x = weather()
             speech = "" + x + ""
@@ -124,21 +111,10 @@ def processRequest(req):
     else:
         speech = "no input"
         res = makeWebhookResult(speech)
-
-
     return res
 
-
 def makeWebhookResult(speech):
-    print("Response:")
-    print(speech)
-
-    return {
-        "displayText": speech,
-        "speech": speech
-    }
-
-
+    return speech
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
