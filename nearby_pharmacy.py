@@ -1,13 +1,13 @@
 from googleplaces import GooglePlaces, types
 
 
-def nearby_pharmacy() :
+def nearby_pharmacy(my_input) :
     YOUR_API_KEY = 'AIzaSyDkfWiMGRhbIWJwk578id9e2X2Nhd7n-90'
 
     google_places = GooglePlaces(YOUR_API_KEY)
 
     query_result = google_places.nearby_search(
-        location='Coimbatore, Tamil Nadu', keyword='pharmacy',
+        location=my_input, keyword='pharmacy',
         radius=2000, types=[types.TYPE_PHARMACY])
 
     strr = " "
@@ -22,5 +22,7 @@ def nearby_pharmacy() :
     return strr
     #returns nearby Pharmacy
     # dependency : python-google-places 1.4.1
-
+if __name__ == "__main__":
+    x=nearby_pharmacy()
+    print(x)
 
