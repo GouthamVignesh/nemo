@@ -1,13 +1,13 @@
 from googleplaces import GooglePlaces, types
 
 
-def doctor_find() :
+def doctor_find(my_input) :
     YOUR_API_KEY = 'AIzaSyDkfWiMGRhbIWJwk578id9e2X2Nhd7n-90'
 
     google_places = GooglePlaces(YOUR_API_KEY)
 
     query_result = google_places.nearby_search(
-        location='Coimbatore, Tamil Nadu', keyword='doctor',
+        location=my_input, keyword='doctor',
         radius=2000, types=[types.TYPE_DOCTOR])
 
     strr = " "
