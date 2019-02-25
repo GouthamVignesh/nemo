@@ -80,8 +80,8 @@ def processRequest(req):
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-    elif action=="bmi.bmi-custom.bmi-height-custom":
-        height=req.get('queryResult').get('outputContexts'.get('number.original'[0]))
+    elif action=="bmi.bmi-custom":
+        height=req.get('queryResult').get('outputContexts').get('number.original'[0]))
         speech=""+height+""
         res=makeWebhookResult(speech)
 
