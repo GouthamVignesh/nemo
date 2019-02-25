@@ -1,7 +1,7 @@
 import json
 import requests
-def weather():
-    city = "coimbatore"
+def weather(my_input):
+    city = my_input
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid=d88ce41afbcf7f04e679e5227db5484a&units=metric'.format(city)
     r = requests.get(url)
     data = r.json()
