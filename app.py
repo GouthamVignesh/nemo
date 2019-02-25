@@ -62,8 +62,9 @@ def processRequest(req):
         x=pregnancy(data)
         speech = ""+x+""
         res=makeWebhookResult(speech)
-    elif action == "pharmacy":
-        x= nearby_pharmacy()
+    elif action == "pharmacy.pharmacy-custom":
+        my_input = req.get('queryResult').get('queryText').lower()
+        x= nearby_pharmacy(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
