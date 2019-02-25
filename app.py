@@ -68,13 +68,15 @@ def processRequest(req):
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-    elif action == "finddoctor":
-        x= doctor_find()
+    elif action == "finddoctor.finddoctor-custom":
+        my_input = req.get('queryResult').get('queryText').lower()
+        x= doctor_find(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-    elif action =="findhospital":
-        x=hospitalfind()
+    elif action =="findhospital.findhospital-custom":
+        my_input = req.get('queryResult').get('queryText').lower()
+        x=hospitalfind(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
