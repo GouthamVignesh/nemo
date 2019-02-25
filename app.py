@@ -77,20 +77,15 @@ def processRequest(req):
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
-
-    elif action == "input.unknown":
+    elif action=="weather.weather-custom":
         my_input = req.get('queryResult').get('queryText').lower()
-        if ("weather" in my_input) or ('tell me about weather condition' in my_input) or ('tell me about weather' in my_input) or ('whats the climate' in my_input):
-            x = weather()
-            speech = "" + x + ""
-            res = makeWebhookResult(speech)
-
-        elif("firebase" in my_input):
-            x= database()
-            speech = "" + x + ""
-            res = makeWebhookResult(speech)
-
-        elif ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
+        x = weather(my_input)
+        speech = "" + x + ""
+        res = makeWebhookResult(speech)
+       
+            
+    elif action == "input.unknown":
+        if ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
             x = news()
             speech = "" + x + ""
             res = makeWebhookResult(speech)
