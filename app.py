@@ -81,6 +81,16 @@ def processRequest(req):
         res = makeWebhookResult(speech)
 
 
+    elif action =="fitness.fitness-custom":
+        height = req.get('queryResult').get('parameters').get('height')
+        weight = req.get('queryResult').get('parameters').get("weight")
+        age = req.get('queryResult').get('parameters').get('age').get('amount')
+        gender =req.get('queryResult').get('parameters').get('gender')
+        target_weight= req.get('queryResult').get('parameters').get('targetweight')
+        speech=""+height+weight+age+gender+target_weight+""
+        res=makeWebhookResult(speech)
+
+
 
     elif action=="weather.weather-custom":
         my_input = req.get('queryResult').get('queryText').lower()
