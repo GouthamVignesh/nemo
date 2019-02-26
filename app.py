@@ -26,6 +26,7 @@ from hospitalfind import hospitalfind
 from nearby_pharmacy import nearby_pharmacy
 from pregnancy import pregnancy
 from menstrualcycle import menstrualcycle
+from bmi import bmi
 # Flask app should start in global layout
 app = Flask(__name__)
 
@@ -86,9 +87,11 @@ def processRequest(req):
         weight = req.get('queryResult').get('parameters').get("weight")
         age = req.get('queryResult').get('parameters').get('age').get('amount')
         age=int(age)
+        age=str(age)
         gender =req.get('queryResult').get('parameters').get('gender')
         target_weight= req.get('queryResult').get('parameters').get('targetweight')
-        speech="" + height + "" + weight + " "+ str(age)+ ""+ gender +"" + target_weight + ""
+        x= bmi(height,weight,gender,age,target_weight)
+        speech="" + x + ""
         res=makeWebhookResult(speech)
 
 
