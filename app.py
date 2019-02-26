@@ -87,7 +87,7 @@ def processRequest(req):
         age = req.get('queryResult').get('parameters').get('age').get('amount')
         gender =req.get('queryResult').get('parameters').get('gender')
         target_weight= req.get('queryResult').get('parameters').get('targetweight')
-        speech="" + height + ""
+        speech="" + height + "" + weight + " "+ str(age)+ ""+ gender +"" + target_weight + ""
         res=makeWebhookResult(speech)
 
 
