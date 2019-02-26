@@ -10,5 +10,5 @@ def weather(my_input):
     latitude = data['coord']['lat']
     longitude = data['coord']['lon']
     description = data['weather'][0]['description']
-    x = "The Current condition in coimbatore is Temperature : {} degree celsius \n Wind Speed : {} m/s \n Latitude : {}\n Longitude : {} It's look like some {} in your area".format(temp, wind_speed, latitude, longitude, description)
+    x = "The Current condition in {} is Temperature : {} degree celsius \n Wind Speed : {} m/s \n Latitude : {}\n Longitude : {} It's look like some {} in your area".format(city,temp, wind_speed, latitude, longitude, description)
     return x
