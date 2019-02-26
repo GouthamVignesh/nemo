@@ -80,6 +80,8 @@ def processRequest(req):
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
+
+
     elif action=="weather.weather-custom":
         my_input = req.get('queryResult').get('queryText').lower()
         x = weather(my_input)
@@ -88,6 +90,7 @@ def processRequest(req):
        
             
     elif action == "input.unknown":
+        my_input = req.get('queryResult').get('queryText').lower()
         if ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
             x = news()
             speech = "" + x + ""
