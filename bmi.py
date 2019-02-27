@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 #gender=input("Enter the gender :")
 #age=input("Enter age :")
 #target_weight=input("Enter the targer weight :")
-def bmi(height,weight,gender,age,target_weight):
+def bmi(height,weight,gender,age):
     gen=0
     if gen=="male":
         gen=1
-    url=("https://www.smartbmicalculator.com/result.html?unit=0&hc={0}&wk={1}&us={2}&ua={3}&ue=1&gk={4}&di=0".format(height,weight,gen,age,target_weight))
+    url=("https://www.smartbmicalculator.com/result.html?unit=0&hc={0}&wk={1}&us={2}&ua={3}&ue=1&gk=".format(height,weight,gen,age))
     page = requests.get(url)
     if (page.status_code == 200):
         html = page.content
