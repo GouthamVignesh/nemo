@@ -89,8 +89,7 @@ def processRequest(req):
         age=int(age)
         age=str(age)
         gender =req.get('queryResult').get('parameters').get('gender')
-        target_weight= req.get('queryResult').get('parameters').get('targetweight')
-        x= bmi(height,weight,gender,age,target_weight)
+        x= bmi(height,weight,gender,age)
         speech="" + x + ""
         res=makeWebhookResult(speech)
 
