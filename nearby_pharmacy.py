@@ -22,7 +22,4 @@ def nearby_pharmacy(my_input) :
     return strr
     #returns nearby Pharmacy
     # dependency : python-google-places 1.4.1
-if __name__ == "__main__":
-    x=nearby_pharmacy()
-    print(x)
 
