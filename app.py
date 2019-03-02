@@ -31,7 +31,7 @@ from bmi import bmi
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['POST','GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
     print("Request:")
@@ -52,6 +52,13 @@ def processRequest(req):
         x= database(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
+
+    elif action =="Diabetes.Diabetes-custom.Diabetes-Type1-no.Diabetes-Type1-no-custom":
+        my_input= my_input = req.get('queryResult').get('queryText').lower()
+        x= nearby_pharmacy(my_input)
+        speech = "" + x + ""
+        res = makeWebhookResult(speech)
+
 
     elif action == "menstrualcycle":
         x=menstrualcycle()
