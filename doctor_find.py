@@ -2,7 +2,7 @@ from googleplaces import GooglePlaces, types
 
 
 def doctor_find(my_input) :
-    YOUR_API_KEY = 'AIzaSyDkfWiMGRhbIWJwk578id9e2X2Nhd7n-90'
+    YOUR_API_KEY = 'AIzaSyDuy19nMwHBvLvgkg9upGZkex9jqriWkQ0'
 
     google_places = GooglePlaces(YOUR_API_KEY)
 
