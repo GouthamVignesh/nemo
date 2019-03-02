@@ -72,12 +72,12 @@ def processRequest(req):
         hour =int(sa_time.strftime('%H'))
 
         if (7 <= hour < 11):
-            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ "Did you have your Breakfast !"
+            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ " Did you have your Breakfast !"
     
         elif (11<= hour < 18):
-            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ "Did you have your lunch !"
+            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ " Did you have your lunch !"
         else:
-            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ "Did you have your Dinner !"
+            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ " Did you have your Dinner !"
         speech =""+greeting+""
         res=makeWebhookResult(speech)
 
