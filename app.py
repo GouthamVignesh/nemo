@@ -27,6 +27,11 @@ from nearby_pharmacy import nearby_pharmacy
 from pregnancy import pregnancy
 from menstrualcycle import menstrualcycle
 from bmi import bmi
+import datetime
+now = datetime.datetime.now()
+hour = now.hour
+currentDT = datetime.datetime.now()
+
 # Flask app should start in global layout
 app = Flask(__name__)
 
@@ -51,7 +56,8 @@ def processRequest(req):
         my_input = (req.get("queryResult").get("parameters").get("medical")).lower()
         x= database(my_input)
         speech = "" + x + ""
-        res = makeWebhookResult(speech)
+        res = makeWebhookResul
+        t(speech)
 
     elif action =="Diabetes.Diabetes-custom.Diabetes-Type1-no.Diabetes-Type1-no-custom":
         my_input= my_input = req.get('queryResult').get('queryText').lower()
@@ -59,6 +65,16 @@ def processRequest(req):
         speech = "" + x + ""
         res = makeWebhookResult(speech)
 
+    elif action =="Diabetes.Diabetes-custom.Diabetes-Type1-yes.Diabetes-Type1-yes-custom.Diabetes-Type1-yes-a-yes":
+        if (7 <= hour < 11):
+            greeting = "It's "+(currentDT.strftime("%I:%M: %p"))+ " Did you have your Breakfast !"
+    
+        elif (11<= hour < 18):
+            greeting = "It's "+(currentDT.strftime("%I:%M: %p"))+ " Did you have your lunch !"
+        else:
+            greeting = "It's "+(currentDT.strftime("%I:%M: %p"))+ " Did you have your Dinner !"
+        speech =""+greeting+""
+        res=makeWebhookResult(speech)
 
     elif action == "menstrualcycle":
         x=menstrualcycle()
