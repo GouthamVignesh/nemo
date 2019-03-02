@@ -66,18 +66,25 @@ def processRequest(req):
         x= nearby_pharmacy(my_input)
         speech = "" + x + ""
         res = makeWebhookResult(speech)
+    
+    elif action=="Diabetes.Diabetes-custom.Diabetes-Type1-yes.Diabetes-Type1-yes-custom.Diabetes-Type1-yes-a-no.Diabetes-Type1-yes-a-no-yes.Diabetes-Type1-yes-a-no-yes-custom":
+        my_input= my_input = req.get('queryResult').get('queryText').lower()
+        x= nearby_pharmacy(my_input)
+        speech = "" + x + ""
+        res = makeWebhookResult(speech)
+
 
     elif action =="Diabetes.Diabetes-custom.Diabetes-Type1-yes.Diabetes-Type1-yes-custom.Diabetes-Type1-yes-a-yes":
         #print (sa_time.strftime('%Y-%m-%d_%H-%M-%S'))
         hour =int(sa_time.strftime('%H'))
 
         if (7 <= hour < 11):
-            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ " Did you have your Breakfast !"
+            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ "Did you have your Breakfast !"
     
         elif (11<= hour < 18):
-            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ " Did you have your lunch !"
+            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ "Did you have your lunch !"
         else:
-            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ " Did you have your Dinner !"
+            greeting = "It's "+(sa_time.strftime("%I:%M: %p"))+ "Did you have your Dinner !"
         speech =""+greeting+""
         res=makeWebhookResult(speech)
 
