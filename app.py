@@ -82,7 +82,7 @@ def processRequest(req):
             greeting = "It's around 9 Am Did you have your Breakfast !"
     
         elif (11<= hour < 18):
-            greeting =  "It's around 9 Am"+ "Did you have your lunch !"
+            greeting =  "It's around 4 pm"+ "Did you have your lunch !"
         else:
             greeting = "It's around 9 Am Did you have your Dinner !"
         speech =""+greeting+""
