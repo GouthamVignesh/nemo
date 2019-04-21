@@ -7,7 +7,7 @@ install_aliases()
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
-
+import webbrowser
 import json
 import os
 import wolframalpha
@@ -29,8 +29,11 @@ from menstrualcycle import menstrualcycle
 from bmi import bmi
 import datetime
 from datetime import datetime
-from pytz import timezone    
-
+from pytz import timezone  
+import urllib.request
+import urllib.parse  
+import requests
+import re
 south_africa = timezone('Asia/Kolkata')
 sa_time = datetime.now(south_africa)
 
@@ -137,12 +140,27 @@ def processRequest(req):
         res = makeWebhookResult(speech)
        
             
-    elif action == "input.unknown":
+    elif action== "input.unknown":
         my_input = req.get('queryResult').get('queryText').lower()
         if ("news" in my_input) or ("top headlines" in my_input) or ("headlines" in my_input):
             x = news()
             speech = "" + x + ""
             res = makeWebhookResult(speech)
+        elif("open"in my_input):
+            keyword=my_input[my_input.find("open")+5:]
+            webbrowser.open_new_tab('http://www.google.com/search?q=%s&btnI' %keyword)
+            speech=""+keyword+" is Opening in Your Web Browser !"
+            res=makeWebhookResult(speech)
+        
+        elif("play"in my_input):
+            search=my_input[my_input.find("play")+5:]
+            query_string = urllib.parse.urlencode({"search_query" :search})
+            html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
+            search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
+            webbrowser.open_new_tab("http://www.youtube.com/watch?v=" + search_results[0])
+            speech=""+Search +"is Now playing !"
+            res=makeWebhookResult(speech)
+
         else:
             try:
                 app_id = "R2LUUJ-QTHXHRHLHK"
