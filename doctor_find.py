@@ -1,148 +1,25 @@
-from bs4 import BeautifulSoup
-import urllib
-import request
-import urllib.request
-import requests
-
-import json
-def innerHTML(element):
-    return element.decode_contents(formatter="html")
-
-def get_name(body):
-	return body.find('span', {'class':'jcn'}).a.string
-
-def which_digit(html):
-    mappingDict={'icon-ji':9,
-                'icon-dc':'+',
-                'icon-fe':'(',
-                'icon-hg':')',
-                'icon-ba':'-',
-                'icon-lk':8,
-                'icon-nm':7,
-                'icon-po':6,
-                'icon-rq':5,
-                'icon-ts':4,
-                'icon-vu':3,
-                'icon-wx':2,
-                'icon-yz':1,
-                'icon-acb':0,
-                }
-    return mappingDict.get(html,'')
-
-def get_phone_number(body):
-    i=0
-    phoneNo = "No Number!"
-    try:
-            
-        for item in body.find('p',{'class':'contact-info'}):
-            i+=1
-            if(i==2):
-                phoneNo=''
-                try:
-                    for element in item.find_all(class_=True):
-                        classes = []
-                        classes.extend(element["class"])
-                        phoneNo+=str((which_digit(classes[1])))
-                except:
-                    pass
-    except:
-        pass
-    body = body['data-href']
-    soup = BeautifulSoup(body, 'html.parser')
-    for a in soup.find_all('a', {"id":"whatsapptriggeer"} ):
-        # print (a)
-        phoneNo = str(a['href'][-10:])
+from googleplaces import GooglePlaces, types
 
 
-    return phoneNo
+def hospitalfind(my_input) :
+    YOUR_API_KEY = 'AIzaSyDuy19nMwHBvLvgkg9upGZkex9jqriWkQ0'
 
+    google_places = GooglePlaces(YOUR_API_KEY)
 
-def get_rating(body):
-	rating = 0.0
-	text = body.find('span', {'class':'star_m'})
-	if text is not None:
-		for item in text:
-			rating += float(item['class'][0][1:])/10
+    query_result = google_places.nearby_search(
+        location=my_input, keyword='hospital',
+        radius=2000, types=[types.TYPE_HOSPITAL])
 
-	return rating
+    strr = " "
+    flag = 0
+    for place in query_result.places:
+        place.get_details()
+        strr = strr + "\n Name :" + (str(place.name).upper()) + "\n Address:" + str(place.formatted_address) + "\n Phone Number :" + (str(place.international_phone_number).upper()) + "\n Map Url :" + str(place.url) + "\n Web Link :" + str(place.website) + "\n Ratings:" + str(place.rating) +"\n"+("_"*50)+"\n"
 
-def get_rating_count(body):
-	text = body.find('span', {'class':'rt_count'}).string
+        flag = flag+1
+        if flag == 5:
+            break
 
-	# Get only digits
-	rating_count =''.join(i for i in text if i.isdigit())
-	return rating_count
-
-def get_address(body):
-	return body.find('span', {'class':'mrehover'}).text.strip()
-
-def get_location(body):
-	text = body.find('a', {'class':'rsmap'})
-	if text == None:
-		return
-	text_list = text['onclick'].split(",")
-	
-	latitutde = text_list[3].strip().replace("'", "")
-	longitude = text_list[4].strip().replace("'", "")
-	
-	return latitutde + ", " + longitude
-
-
-
-
-
-fields = ['Name', 'Phone', 'Rating', 'Rating Count', 'Address', 'Location']
-
-def find_doctor(my_input):
-	url="https://www.justdial.com/Coimbatore/Doctors-in-%s/nct-10892680/page-1" % (user_input)
-	print(url)
-	req = urllib.request.Request(url, headers={'User-Agent' : "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"}) 
-	page = urllib.request.urlopen( req )
-	# page=urllib2.urlopen(url)
-	service_count=1
-	soup = BeautifulSoup(page.read(), "html.parser")
-	services = soup.find_all('li', {'class': 'cntanr'})
-	output={}
-	# Iterate through the 10 results in the page
-	for service_html in services:
-		
-		# Parse HTML to fetch data     
-		dict_service = {}
-		name = get_name(service_html)
-		print(name)
-		phone = get_phone_number(service_html)
-		rating = get_rating(service_html)
-		count = get_rating_count(service_html)
-		address = get_address(service_html)
-		location = get_location(service_html)
-		if name != None:
-			dict_service['Name'] = name
-		if phone != None:
-			print('getting phone number')
-			dict_service['Phone'] = phone
-		if rating != None:
-			dict_service['Rating'] = rating
-		if count != None:
-			dict_service['Rating Count'] = count
-		if address != None:
-			dict_service['Address'] = address
-		if location != None:
-			dict_service['Address'] = location
-
-		# Write row to CSV
-
-		#print("#" + str(service_count) + " " , dict_service)
-		output[str(service_count)]=dict_service
-		
-		service_count += 1
-		if (service_count >5):
-			break
-
-	string=""
-	for i in output:
-		string+=str(output[i])
-		string+="\n\n"
-	return string
-
-
-	
+    return strr
+    #returns nearby Pharmacy
+    # dependency : python-google-places 1.4.1
