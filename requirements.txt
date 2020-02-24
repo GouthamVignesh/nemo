@@ -6,5 +6,5 @@ python-firebase==1.2
 gcloud==0.18.3
 python-google-places==1.4.1
 pytz==2018.9
-urllib3==1.22
+urllib3==1.24.2
 requests==2.18.4
