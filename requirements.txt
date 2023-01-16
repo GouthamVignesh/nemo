@@ -7,4 +7,4 @@ gcloud==0.18.3
 python-google-places==1.4.1
 pytz==2018.9
 urllib3==1.22
-requests==2.18.4
+requests==2.20.0
